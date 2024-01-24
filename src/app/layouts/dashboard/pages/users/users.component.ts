@@ -13,7 +13,7 @@ export class UsersComponent {
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [
     {
-      id: '1706106606535',
+      id: 'QA17061',
       firstName: 'Heidi',
       lastName: 'Heinz',
       email: 'hh@mail.com',
@@ -21,7 +21,7 @@ export class UsersComponent {
       role: 'Estudiante'
     },
     {
-      id: '1706106600065',
+      id: 'AR00065',
       firstName: 'Pedro',
       lastName: 'Lo',
       email: 'lop@mail.com',
