@@ -1,0 +1,38 @@
+<mat-drawer-container autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <p>Lorem</p>
+        @if (showFiller) {
+        <p>Lorem.</p>
+        }
+        <button (click)="showFiller = !showFiller" mat-raised-button>
+            Toggle extra text
+        </button>
+    </mat-drawer>
+
+    <div class="sidenav-content">
+        <mat-toolbar>
+            <button mat-icon-button class="example-icon" (click)="drawer.toggle()"
+                aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span appHeadline [fontWeight]="'bold'">My App</span>
+            <span class="spacer"></span>
+            <div *ngIf="mostrarInput" class="mt-2 flex align-items-center">
+                <mat-form-field class="mt-3">
+                    <mat-label>Nombre</mat-label>
+                    <input [(ngModel)]="nombreIngresado" matInput type="text">
+                </mat-form-field>
+                <button mat-raised-button (click)="mostrarResultado()">OK</button>
+            </div>
+
+            <div *ngIf="!mostrarInput && nombreMostrado !== undefined">
+                <span [innerHTML]="nombreMostrado"></span>
+            </div>
+        </mat-toolbar>
+
+        <div class="p-4">
+            <app-users></app-users>
+        </div>
+    </div>
+
+</mat-drawer-container>

@@ -1,0 +1,47 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="grid formgrid mt-3 mb-3">
+    <div class="col-12 flex justify-content-center mb-3">
+        <h2>Cargar usuario:</h2>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="firstName" matInput type="text">
+        </mat-form-field>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Apellido</mat-label>
+            <input formControlName="lastName" matInput type="text">
+        </mat-form-field>
+    </div>
+
+    <div class="col-12">
+        <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput type="email">
+        </mat-form-field>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Contraseña</mat-label>
+            <input formControlName="password" matInput type="password">
+        </mat-form-field>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value="Estudiante">Estudiante</mat-option>
+                <mat-option value="Profesor">Profesor</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-12 flex justify-content-between">
+        <button class="mb-3" mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        <button class="mb-3" mat-raised-button type="submit">Guardar</button>
+    </div>
+</form>
