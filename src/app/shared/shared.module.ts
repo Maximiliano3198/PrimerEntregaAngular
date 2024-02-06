@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { AdminNamePipe } from './pipes/admin-name.pipe';
 import { HeadlineDirective } from './directives/headline-directive';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -34,7 +36,9 @@ import { HeadlineDirective } from './directives/headline-directive';
     FormErrorsPipe,
     MatTableModule,
     AdminNamePipe,
-    HeadlineDirective
+    HeadlineDirective,
+    MatOptionModule,
+    MatDatepickerModule,
   ]
 })
 export class SharedModule { }

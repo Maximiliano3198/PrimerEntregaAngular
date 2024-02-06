@@ -6,7 +6,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { UsersModule } from './pages/users/users.module';
-import { CoursesModule } from './pages/courses/courses.module';
 import { StudentsModule } from './pages/students/students.module';
 import { CategoriesModule } from './pages/categories/categories.module';
 import { SharedModule } from '../../shared/shared.module';
@@ -17,6 +16,9 @@ import {MatListModule} from '@angular/material/list';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
+import { CoursesModule } from './pages/courses/courses.module';
+import { CoursesRoutingModule } from './pages/courses/courses-routing.module';
+
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail
     MatIconModule,
     UsersModule,
     CoursesModule,
+    CoursesRoutingModule,
     StudentsModule,
     CategoriesModule,
     SharedModule,
@@ -49,8 +52,19 @@ import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail
         component: UsersComponent,
       },
       {
+        path:'courses',
+        loadChildren: ()=> 
+        import('./pages/courses/courses.module').then(
+          (m) => m.CoursesModule
+        ),
+      },
+      {
         path: 'users/:id',
         component: UserDetailComponent,
+      },
+      {
+        path: '',
+        component: HomeComponent
       },
     ]),
   ],

@@ -1,0 +1,28 @@
+<form [formGroup]="courseForm"  class="grid formgrid mt-3 mb-3">
+    <div class="col-12 flex justify-content-center mb-3">
+        <h2>Crear usuario:</h2>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Curso</mat-label>
+            <input formControlName="courseName" matInput type="text">
+        </mat-form-field>
+    </div>
+
+    <div class="col-6">
+        <mat-form-field>
+            <mat-label>Fecha de inicio</mat-label>
+            <input formControlName="startDate" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </div>
+
+    <pre>{{courseForm.value | json}}</pre>
+    <div class="col-12 flex justify-content-between">
+        <button class="mb-3" mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+        <button class="mb-3" mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</form>
