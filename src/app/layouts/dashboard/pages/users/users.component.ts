@@ -1,36 +1,37 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from './models';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { UsersService } from './users.service';
+import { LoadingService } from '../../../../core/services/loading.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'email', 'role', 'actions'];
   dataSource: User[] = [
-    {
-      id: 'QA17061',
-      firstName: 'Heidi',
-      lastName: 'Heinz',
-      email: 'hh@mail.com',
-      password: '123',
-      role: 'Estudiante'
-    },
-    {
-      id: 'AR00065',
-      firstName: 'Pedro',
-      lastName: 'Lo',
-      email: 'lop@mail.com',
-      password: '123',
-      role: 'Estudiante'
-    }
+
   ];
 
-  constructor(public dialogRef: MatDialog) {}
+  constructor(public dialogRef: MatDialog, private userService: UsersService, private loadingService: LoadingService) { }
+
+  ngOnInit(): void {
+    this.loadingService.setIsLoading(true)
+    this.userService.getUsers().subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      complete: () => {
+        this.loadingService.setIsLoading(false);
+      }
+    })
+  }
 
   openCreateModal(): void {
     const dialogRef = this.dialogRef.open(UserFormComponent);
@@ -40,21 +41,52 @@ export class UsersComponent {
         ...user,
         id: this.generateUniqueID()
       };
-      this.onUserSubmitted(newUser); 
+      this.onUserSubmitted(newUser);
       dialogRef.close();
     });
   }
   onUserSubmitted(ev: User): void {
-    this.dataSource = [...this.dataSource, ev];
+    this.loadingService.setIsLoading(true);
+    this.userService
+      .createUser({ ...ev })
+      .subscribe({
+        next: (users) => {
+          this.dataSource = [...users];
+        },
+        complete: () => {
+          this.loadingService.setIsLoading(false);
+        }
+      })
+  }
+
+  confirmDelete(element: any): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas eliminar a ${element.firstName} ${element.lastName}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteItem(element);
+      }
+    });
   }
   
-  deleteItem(element: User): void {
-    const index = this.dataSource.indexOf(element);
 
-    if (index >= 0) {
-      this.dataSource.splice(index, 1);
-      this.dataSource = [...this.dataSource];
-    }
+  deleteItem(ev: User): void {
+    this.loadingService.setIsLoading(true)
+    this.userService.deleteUser(ev.id).subscribe({
+      next: (users) => {
+        this.dataSource = [...users];
+      },
+      complete: () => {
+        this.loadingService.setIsLoading(false);
+      }
+    })
   }
 
   editItem(element: User): void {
@@ -75,7 +107,7 @@ export class UsersComponent {
   }
   private generateUniqueID(): string {
     const initials = String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
-                      String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      String.fromCharCode(65 + Math.floor(Math.random() * 26));
     const randomNumbers = Math.floor(10000 + Math.random() * 90000).toString();
     const generatedID = initials + randomNumbers;
 

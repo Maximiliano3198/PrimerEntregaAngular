@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UserDetailComponent } from './pages/user-detail/user-detail.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,7 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   declarations: [
     UsersComponent,
     UserFormComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     SharedModule,
     MatDialogModule,
+    RouterModule,
   ],
   exports: [
     UsersComponent

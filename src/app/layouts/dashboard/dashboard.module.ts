@@ -12,7 +12,11 @@ import { CategoriesModule } from './pages/categories/categories.module';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-
+import { RouterModule } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
+import { HomeComponent } from './pages/home/home.component';
+import { UsersComponent } from './pages/users/users.component';
+import { UserDetailComponent } from './pages/users/pages/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -31,7 +35,24 @@ import { MatInputModule } from '@angular/material/input';
     CategoriesModule,
     SharedModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule,
+    MatListModule,
+
+    RouterModule.forChild([
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+      },
+      {
+        path: 'users/:id',
+        component: UserDetailComponent,
+      },
+    ]),
   ],
   exports: [
     DashboardComponent

@@ -1,12 +1,9 @@
 <mat-drawer-container autosize>
     <mat-drawer #drawer class="sidenav" mode="side">
-        <p>Lorem</p>
-        @if (showFiller) {
-        <p>Lorem.</p>
-        }
-        <button (click)="showFiller = !showFiller" mat-raised-button>
-            Toggle extra text
-        </button>
+        <mat-list>
+            <a #homeLink="routerLinkActive" routerLinkActive [activated]="homeLink.isActive" routerLink="home" mat-list-item >Inicio</a>
+            <a #usersLink="routerLinkActive" routerLinkActive [activated]="usersLink.isActive" routerLink="users" mat-list-item >Usuarios</a>
+          </mat-list>
     </mat-drawer>
 
     <div class="sidenav-content">
@@ -31,7 +28,10 @@
         </mat-toolbar>
 
         <div class="p-4">
-            <app-users></app-users>
+
+            <router-outlet>
+
+            </router-outlet>
         </div>
     </div>
 

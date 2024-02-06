@@ -12,7 +12,6 @@ export class HeadlineDirective {
   }
 
   set fontWeight(newWeight: 'normal' | 'bold' | 'bolder') {
-    console.log('CAMBIO EL PESO: ', newWeight);
     this._fontWeight = newWeight;
     this.applyStyles();
   }

@@ -1,4 +1,5 @@
 import { RouterModule } from '@angular/router';
+
 export interface User {
     id: string;
     firstName: string;
